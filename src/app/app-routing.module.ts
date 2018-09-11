@@ -1,20 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
-import { ListComponent } from './workers/list/list.component';
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      {
-        path: 'workers', children: [
-          { path: 'list', component: ListComponent }
-        ]
-      }
+      { path: 'workers', loadChildren: './workers/workers.module#WorkersModule' }
     ]),
     CommonModule
   ],
   exports: [RouterModule],
-  declarations: []
+  declarations: [],
+  providers: []
 })
 export class AppRoutingModule { }

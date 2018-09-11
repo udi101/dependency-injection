@@ -1,21 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatMenuModule, MatButtonModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WorkersModule } from './workers/workers.module';
+import { NavbarComponent } from './navbar/navbar.component';
+import { WorkersService } from './workers/workers.service';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent
   ],
   imports: [
-    WorkersModule,
     AppRoutingModule,
     BrowserModule,
+    MatMenuModule, MatButtonModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [WorkersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

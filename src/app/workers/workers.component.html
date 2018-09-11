@@ -1,0 +1,9 @@
+<hr>
+<h3>This is workers</h3>
+<div *ngFor="let worker of workers">
+  {{worker.name}}
+</div>
+<button color="primary" mat-raised-button (click)="addWorker('workerWorker')">Add worker</button>
+
+<router-outlet></router-outlet>
+<hr>

@@ -1,3 +1,5 @@
-<p>
-  list works!
-</p>
+<h3>List Component</h3>
+<div *ngFor="let worker of workers">
+  {{worker.name}}
+</div>
+<button mat-raised-button color="primary" (click)="addWorker('listWorker')">Add worker</button>

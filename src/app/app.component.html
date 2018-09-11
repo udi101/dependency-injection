@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+<app-navbar></app-navbar>
+<div class="container">
+  <router-outlet></router-outlet>
+<hr>
+<div>
+  <h3>app component workers</h3>
+<div *ngFor="let worker of workers">{{worker.name}}</div>
+</div>
+<button mat-raised-button color="primary" (click)="addWorker()">Add worker</button>
+<hr>
+</div>
