@@ -4,7 +4,8 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      { path: 'workers', loadChildren: './workers/workers.module#WorkersModule' }
+      { path: 'workers', loadChildren: './workers/workers.module#WorkersModule' },
+      { path: 'animals', loadChildren: './animals/animals.module#AnimalsModule' }
     ]),
     CommonModule
   ],

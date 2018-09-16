@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { WorkersService } from './workers/workers.service';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { WorkersService } from './workers/workers.service';
     AppRoutingModule,
     BrowserModule,
     MatMenuModule, MatButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    StoreModule.forRoot(reducers, { metaReducers })
   ],
   providers: [WorkersService],
   bootstrap: [AppComponent]
