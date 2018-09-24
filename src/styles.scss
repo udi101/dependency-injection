@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 
 html,
 body {
@@ -15,3 +17,12 @@ body {
     margin-top: 12px !important;
   }
 }
+
+
+
+  div.col-sm-6{
+    flex-basis: 50%;
+}
+div.col-sm-3{
+    flex-basis:25%;
+  }

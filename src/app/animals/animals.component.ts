@@ -5,28 +5,31 @@ import { IAnimal } from './interfaces/IAnimal.interface';
 import { AnimalsService } from './services/animals.service';
 
 @Component({
-  selector: 'app-animals',
-  templateUrl: './animals.component.html',
-  styleUrls: ['./animals.component.scss']
+    selector: 'app-animals',
+    templateUrl: './animals.component.html',
+    styleUrls: ['./animals.component.scss']
 })
 export class AnimalsComponent implements OnInit {
-  displayAnimalFamily = true;
-  animals: Array<IAnimal> = new Array<IAnimal>();
+    displayAnimalFamily = false;
+    animals: Array<IAnimal> = new Array<IAnimal>();
 
-  displayColumns = ['name', 'family'];
-  constructor(private animalService: AnimalsService) { }
-
-  ngOnInit() {
-    this.animalService.animals$.pipe(
-      tap(() => { })
-    ).subscribe(animals => { this.animals = animals; });
-  }
-
-  changeDisplay(e) {
-    if (e.target.checked) {
-      this.displayColumns.splice(this.displayColumns.findIndex(x => x === 'family'), 1);
-      return;
+    get displayColumns(): Array<string> {
+        return this.displayAnimalFamily ? ['name', 'family'] : ['name'];
     }
-    this.displayColumns = ['name', 'family'];
-  }
+    
+    displayHeaders = ['name','family'];
+
+    constructor(private animalService: AnimalsService) { }
+
+    ngOnInit() {
+        this.animalService.animals$.pipe(
+            tap(() => { })
+        ).subscribe(animals => { this.animals = animals; });
+    }
+
+    changeDisplay(e: boolean) {
+        this.displayAnimalFamily = e;
+    }
 }
+
+
