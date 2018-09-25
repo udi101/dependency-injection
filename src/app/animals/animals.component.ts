@@ -3,6 +3,7 @@ import { tap } from 'rxjs/operators';
 
 import { IAnimal } from './interfaces/IAnimal.interface';
 import { AnimalsService } from './services/animals.service';
+import { MatCheckboxChange } from '@angular/material';
 
 @Component({
     selector: 'app-animals',
@@ -16,8 +17,8 @@ export class AnimalsComponent implements OnInit {
     get displayColumns(): Array<string> {
         return this.displayAnimalFamily ? ['name', 'family'] : ['name'];
     }
-    
-    displayHeaders = ['name','family'];
+
+    displayHeaders = ['name', 'family'];
 
     constructor(private animalService: AnimalsService) { }
 

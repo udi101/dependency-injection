@@ -1,22 +1,24 @@
+<div class="col-sm-6">
 
-  <div class="col-sm-6">
 
-    Display animals families
-    <input type="checkbox" (change)="changeDisplay($event.target.checked)">
 
-    <mat-table [dataSource]="animals" class="mat-elevation-z2" style="flex-basis: 80%">
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-        <mat-cell *matCellDef="let animal">{{animal.name}}</mat-cell>
-      </ng-container>
+  <mat-table [dataSource]="animals" class="mat-elevation-z2" style="flex-basis: 80%">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let animal">{{animal.name}}</mat-cell>
+    </ng-container>
 
-      <ng-container matColumnDef="family">
-        <mat-header-cell *matHeaderCellDef>Family</mat-header-cell>
-        <mat-cell *matCellDef="let animal">{{animal.family}}</mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="family">
+      <mat-header-cell *matHeaderCellDef>Family</mat-header-cell>
+      <mat-cell *matCellDef="let animal">{{animal.family}}</mat-cell>
+    </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayHeaders"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayColumns;"></mat-row>
+    <mat-header-row *matHeaderRowDef="displayHeaders"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayColumns;"></mat-row>
 
-    </mat-table>
-  </div>
+  </mat-table>
+<br>
+  <mat-checkbox [indeterminate]="true" color="primary" (change)="changeDisplay($event.checked)">Display animals families</mat-checkbox>
+
+</div>
+
