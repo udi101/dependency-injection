@@ -5,20 +5,26 @@
   <mat-table [dataSource]="animals" class="mat-elevation-z2" style="flex-basis: 80%">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-      <mat-cell *matCellDef="let animal">{{animal.name}}</mat-cell>
+      <mat-cell *matCellDef="let animal" [ngClass]="{'currentAnimal': isCurrentAnimal(animal.id)}">{{animal.name}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="family">
       <mat-header-cell *matHeaderCellDef>Family</mat-header-cell>
-      <mat-cell *matCellDef="let animal">{{animal.family}}</mat-cell>
+      <mat-cell *matCellDef="let animal">{{ displayAnimalFamily?animal.family:''}}</mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayHeaders"></mat-header-row>
+    <ng-container matColumnDef="current">
+      <mat-header-cell *matHeaderCellDef>Current</mat-header-cell>
+      <mat-cell *matCellDef="let animal">
+        <button mat-button color="primary" (click)="setCurrentAnimal(animal.id)">Select Animal</button></mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayColumns;"></mat-row>
 
   </mat-table>
-<br>
-  <mat-checkbox [indeterminate]="true" color="primary" (change)="changeDisplay($event.checked)">Display animals families</mat-checkbox>
+  <br>
+  <mat-checkbox color="primary" [disableRipple]="true" (change)="changeDisplay($event.checked)" [checked]="displayAnimalFamily">Display
+    animals families</mat-checkbox>
 
 </div>
-

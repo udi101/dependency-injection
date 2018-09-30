@@ -7,8 +7,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { WorkersService } from './workers/workers.service';
-import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
+
+// NgRx
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,12 @@ import { reducers, metaReducers } from './reducers';
     BrowserModule,
     MatMenuModule, MatButtonModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot(reducers, { metaReducers })
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      name: 'di devTools',
+      maxAge: 10,
+      logOnly: environment.production
+    })
   ],
   providers: [WorkersService],
   bootstrap: [AppComponent]
