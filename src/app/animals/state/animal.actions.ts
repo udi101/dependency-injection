@@ -1,27 +1,23 @@
 import { Action } from '@ngrx/store';
 
-// ======================================================
-// Define the actions types as names constants
-// ======================================================
+// Creating an enum of all available actions
 export enum AnimalActionTypes {
-    ToggleAnimalFamily = '[Animal] TOGGLE_ANIMAL_FAMILY',
+    ToggleDisplayFamily = '[Animal] TOGGLE_DISPLAY_FAMILY',
     SetCurrentAnimal = '[Animal] SET_CURRENT_ANIMAL'
 }
 
-// ======================================================
-// Build the action creators
-// ======================================================
-export class ToggleAnimalFamily implements Action {
-    readonly type: AnimalActionTypes.ToggleAnimalFamily;
-    constructor(public payload: boolean) { }
 
+// Building a class for each of the actions
+export class ToggleDisplayFamily implements Action {
+    readonly type =  AnimalActionTypes.ToggleDisplayFamily;
+    constructor(public payload: boolean) { }
 }
+
 export class SetCurrentAnimal implements Action {
-    readonly type: AnimalActionTypes.SetCurrentAnimal;
+    readonly type =  AnimalActionTypes.SetCurrentAnimal;
     constructor(public payload: number) { }
 }
 
-// ======================================================
-// Define a union type for those action creators
-// ======================================================
-export type AnimalActions = ToggleAnimalFamily | SetCurrentAnimal;
+
+// Creating a type (union) so we could have a strongly typed actions
+export type AnimalActions = ToggleDisplayFamily | SetCurrentAnimal;

@@ -6,6 +6,7 @@ import { AnimalsService } from './services/animals.service';
 
 // NgRx
 import * as fromAnimal from './state/animals.reducer';
+import * as animalActions from './state/animal.actions';
 import { Store, select } from '@ngrx/store';
 
 @Component({
@@ -44,17 +45,11 @@ export class AnimalsComponent implements OnInit {
     }
 
     changeDisplay(e: boolean) {
-        this.store.dispatch({
-            type: 'TOGGLE_ANIMAL_FAMILY',
-            payload: e
-        });
+        this.store.dispatch(new animalActions.ToggleDisplayFamily(e));
     }
 
     setCurrentAnimal(animalId: number) {
-        this.store.dispatch({
-            type: 'SET_CURRENT_ANIMAL',
-            payload: animalId
-        });
+        this.store.dispatch(new animalActions.SetCurrentAnimal(animalId));
     }
 }
 

@@ -1,6 +1,7 @@
 import { IAnimal } from '../interfaces/IAnimal.interface';
 import * as fromRoot from './../../state/app.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { AnimalActions, AnimalActionTypes } from './animal.actions';
 
 export interface IState extends fromRoot.IState {
     animals: IAnimalState;
@@ -42,14 +43,14 @@ export const getCurrentAnimal = createSelector(
 // =====================================================================
 // This us the reducer function
 // =====================================================================
-export function reducer(state = initialState, action): IAnimalState {
+export function reducer(state = initialState, action: AnimalActions): IAnimalState {
     switch (action.type) {
-        case 'TOGGLE_ANIMAL_FAMILY':
+        case AnimalActionTypes.ToggleDisplayFamily:
             return {
                 ...state,
                 displayAnimalFamily: action.payload
             };
-        case 'SET_CURRENT_ANIMAL':
+        case AnimalActionTypes.SetCurrentAnimal:
             return {
                 ...state,
                 currentAnimal: action.payload
