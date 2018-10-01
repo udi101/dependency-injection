@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { IAnimal } from './../interfaces/IAnimal.interface';
+import { IAnimal } from '../interfaces/IAnimal.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class AnimalsService {
+export class AnimalService {
   displayAnimalFamily = false;
   private animals: BehaviorSubject<Array<IAnimal>> = new BehaviorSubject<Array<IAnimal>>(animals);
   animals$ = this.animals.asObservable();
   constructor() { }
+
+  getAnimals(): Array<IAnimal> {
+    return animals;
+  }
 }
 
 

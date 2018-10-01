@@ -20,7 +20,11 @@ export interface IAnimalState {
 const initialState: IAnimalState = {
     displayAnimalFamily: true,
     currentAnimal: 0,
-    animals: []
+    animals: [
+        { id: 1, name: 'Eagle', family: 'Birds' },
+        { id: 2, name: 'Lion', family: 'Cats' },
+        { id: 3, name: 'Tiger Shark', family: 'Sharks' }
+    ]
 };
 
 // =====================================================================
@@ -35,10 +39,22 @@ export const getAnimalsDiplayAnimalfamily = createSelector(
     (state: IAnimalState): boolean => state.displayAnimalFamily
 );
 // Selector for the current animal id
-export const getCurrentAnimal = createSelector(
+export const getCurrentAnimalId = createSelector(
     getAnimalFeatureState,
     (state: IAnimalState): number => state.currentAnimal
 );
+
+export const getCurrentAnimal = createSelector(
+    getAnimalFeatureState,
+    (state: IAnimalState): IAnimal => state.animals.find(a => a.id === state.currentAnimal)
+);
+
+export const getAnimals = createSelector(
+    getAnimalFeatureState,
+    (state: IAnimalState): Array<IAnimal> => state.animals
+);
+
+
 
 // =====================================================================
 // This us the reducer function
@@ -54,6 +70,11 @@ export function reducer(state = initialState, action: AnimalActions): IAnimalSta
             return {
                 ...state,
                 currentAnimal: action.payload
+            };
+        case AnimalActionTypes.LoadSuccess:
+            return {
+                ...state,
+                animals: [...action.payload]
             };
         default: return state;
     }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
 import { IAnimal } from './interfaces/IAnimal.interface';
-import { AnimalsService } from './services/animals.service';
+import { AnimalService } from './services/animal.service';
 
 // NgRx
 import * as fromAnimal from './state/animals.reducer';
@@ -21,13 +21,14 @@ export class AnimalsComponent implements OnInit {
 
     displayColumns = ['name', 'family', 'current'];
 
-    constructor(private animalService: AnimalsService,
+    constructor(private animalService: AnimalService,
         private store: Store<fromAnimal.IState>) { }
 
     ngOnInit() {
-        this.animalService.animals$.pipe(
-            tap(() => { })
-        ).subscribe(animals => { this.animals = animals; });
+        this.store.pipe(select(fromAnimal.getAnimals)).subscribe((animals: Array<IAnimal>) => this.animals = animals);
+        // this.animalService.animals$.pipe(
+        //     tap(() => { })
+        // ).subscribe(animals => { this.animals = animals; });
 
         // registering the store state
         this.store.pipe(select(fromAnimal.getAnimalsDiplayAnimalfamily)).subscribe(
@@ -35,7 +36,7 @@ export class AnimalsComponent implements OnInit {
                 this.displayAnimalFamily = displayAnimalFamily;
             }
         );
-        this.store.pipe(select(fromAnimal.getCurrentAnimal)).subscribe(
+        this.store.pipe(select(fromAnimal.getCurrentAnimalId)).subscribe(
             (currentAnimalId: number) => this.currentAnimalId = currentAnimalId
         );
     }
