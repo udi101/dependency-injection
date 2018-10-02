@@ -2,7 +2,7 @@
 
 
 
-  <mat-table [dataSource]="animals" class="mat-elevation-z2" style="flex-basis: 80%">
+  <mat-table [dataSource]="animals$ | async" class="mat-elevation-z2" style="flex-basis: 80%">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
       <mat-cell *matCellDef="let animal" [ngClass]="{'currentAnimal': isCurrentAnimal(animal.id)}">{{animal.name}}</mat-cell>
@@ -29,5 +29,5 @@
 
 </div>
 <div class="col-sm-6" style="margin:4px">
-<current-animal></current-animal>
+  <current-animal></current-animal>
 </div>

@@ -5,9 +5,9 @@ import { IAnimal } from '../interfaces/IAnimal.interface';
 export enum AnimalActionTypes {
     ToggleDisplayFamily = '[Animal] TOGGLE_DISPLAY_FAMILY',
     SetCurrentAnimal = '[Animal] SET_CURRENT_ANIMAL',
-    Load = '[Animal] LOAD_ANIMALS_LIST',
-    LoadSuccess = '[Animal] LOAD_ANIMALS_LIST_SUCCESS',
-    LoadFailure = '[Animal] LOAD_ANIMALS_LIST_FAILURE'
+    Load = '[Animal] LOAD',
+    LoadSuccess = '[Animal] LOAD_SUCCESS',
+    LoadFailure = '[Animal] LOAD_FAILURE'
 }
 
 
@@ -30,6 +30,7 @@ export class LoadSuccess implements Action {
     readonly type = AnimalActionTypes.LoadSuccess;
     constructor(public payload: Array<IAnimal>) { }
 }
+// this is the error action
 export class LoadFailure implements Action {
     readonly type = AnimalActionTypes.LoadFailure;
     constructor(public payload: string) { }

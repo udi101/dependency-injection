@@ -4,13 +4,14 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AnimalActions, AnimalActionTypes } from './animal.actions';
 
 export interface IState extends fromRoot.IState {
-    animals: IAnimalState;
+  animals: IAnimalState;
 }
 
 export interface IAnimalState {
-    displayAnimalFamily: boolean;
-    currentAnimal: number;
-    animals: Array<IAnimal>;
+  displayAnimalFamily: boolean;
+  currentAnimal: number;
+  animals: Array<IAnimal>;
+  error: string;
 }
 
 
@@ -18,13 +19,10 @@ export interface IAnimalState {
 // Initializing the state of the store slice
 // =====================================================================
 const initialState: IAnimalState = {
-    displayAnimalFamily: true,
-    currentAnimal: 0,
-    animals: [
-        { id: 1, name: 'Eagle', family: 'Birds' },
-        { id: 2, name: 'Lion', family: 'Cats' },
-        { id: 3, name: 'Tiger Shark', family: 'Sharks' }
-    ]
+  displayAnimalFamily: true,
+  currentAnimal: 0,
+  animals: [],
+  error: ''
 };
 
 // =====================================================================
@@ -35,23 +33,28 @@ const initialState: IAnimalState = {
 const getAnimalFeatureState = createFeatureSelector<IAnimalState>('animals');
 // Selector for displaying animal family
 export const getAnimalsDiplayAnimalfamily = createSelector(
-    getAnimalFeatureState,
-    (state: IAnimalState): boolean => state.displayAnimalFamily
+  getAnimalFeatureState,
+  (state: IAnimalState): boolean => state.displayAnimalFamily
 );
 // Selector for the current animal id
 export const getCurrentAnimalId = createSelector(
-    getAnimalFeatureState,
-    (state: IAnimalState): number => state.currentAnimal
+  getAnimalFeatureState,
+  (state: IAnimalState): number => state.currentAnimal
 );
 
 export const getCurrentAnimal = createSelector(
-    getAnimalFeatureState,
-    (state: IAnimalState): IAnimal => state.animals.find(a => a.id === state.currentAnimal)
+  getAnimalFeatureState,
+  (state: IAnimalState): IAnimal => state.animals.find(a => a.id === state.currentAnimal)
 );
 
 export const getAnimals = createSelector(
-    getAnimalFeatureState,
-    (state: IAnimalState): Array<IAnimal> => state.animals
+  getAnimalFeatureState,
+  (state: IAnimalState): Array<IAnimal> => state.animals
+);
+
+export const getError = createSelector(
+  getAnimalFeatureState,
+  (state: IAnimalState): string => state.error
 );
 
 
@@ -60,22 +63,31 @@ export const getAnimals = createSelector(
 // This us the reducer function
 // =====================================================================
 export function reducer(state = initialState, action: AnimalActions): IAnimalState {
-    switch (action.type) {
-        case AnimalActionTypes.ToggleDisplayFamily:
-            return {
-                ...state,
-                displayAnimalFamily: action.payload
-            };
-        case AnimalActionTypes.SetCurrentAnimal:
-            return {
-                ...state,
-                currentAnimal: action.payload
-            };
-        case AnimalActionTypes.LoadSuccess:
-            return {
-                ...state,
-                animals: [...action.payload]
-            };
-        default: return state;
-    }
+  switch (action.type) {
+    case AnimalActionTypes.ToggleDisplayFamily:
+      return {
+        ...state,
+        displayAnimalFamily: action.payload
+      };
+    case AnimalActionTypes.SetCurrentAnimal:
+      return {
+        ...state,
+        currentAnimal: action.payload
+      };
+    case AnimalActionTypes.LoadSuccess:
+      return {
+        ...state,
+        error: '',
+        animals: [...action.payload]
+      };
+
+    case AnimalActionTypes.LoadFailure:
+      return {
+        ...state,
+        animals: [],
+        error: action.payload
+      };
+
+    default: return state;
+  }
 }
