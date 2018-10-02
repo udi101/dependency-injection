@@ -7,9 +7,11 @@ export interface IState extends fromRoot.IState {
   animals: IAnimalState;
 }
 
+
+// Interface of the Animal's feature state
 export interface IAnimalState {
   displayAnimalFamily: boolean;
-  currentAnimal: number;
+  currentAnimalId: number | null;
   animals: Array<IAnimal>;
   error: string;
 }
@@ -20,12 +22,13 @@ export interface IAnimalState {
 // =====================================================================
 const initialState: IAnimalState = {
   displayAnimalFamily: true,
-  currentAnimal: 0,
+  currentAnimalId: null,
   animals: [],
   error: ''
 };
 
 // =====================================================================
+// SELECTORS
 // There are 2 kinds of selectors:
 // 1. createFeatureSelector which brings a whole slice of the state.
 // 2. create selector which can build whatever state structure we need
@@ -39,12 +42,14 @@ export const getAnimalsDiplayAnimalfamily = createSelector(
 // Selector for the current animal id
 export const getCurrentAnimalId = createSelector(
   getAnimalFeatureState,
-  (state: IAnimalState): number => state.currentAnimal
+  (state: IAnimalState): number => state.currentAnimalId
 );
 
+// Composition of 2 selectors
 export const getCurrentAnimal = createSelector(
   getAnimalFeatureState,
-  (state: IAnimalState): IAnimal => state.animals.find(a => a.id === state.currentAnimal)
+  getCurrentAnimalId,
+  (state: IAnimalState, animalId: number): IAnimal => animalId ? state.animals.find(a => a.id === animalId) : null
 );
 
 export const getAnimals = createSelector(
@@ -64,16 +69,19 @@ export const getError = createSelector(
 // =====================================================================
 export function reducer(state = initialState, action: AnimalActions): IAnimalState {
   switch (action.type) {
+
     case AnimalActionTypes.ToggleDisplayFamily:
       return {
         ...state,
         displayAnimalFamily: action.payload
       };
+
     case AnimalActionTypes.SetCurrentAnimal:
       return {
         ...state,
-        currentAnimal: action.payload
+        currentAnimalId: action.payload
       };
+
     case AnimalActionTypes.LoadSuccess:
       return {
         ...state,

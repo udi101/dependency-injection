@@ -15,16 +15,20 @@ body {
 .container {
   button {
     margin-top: 4px !important;
-    border-radius:30px;
-    margin-bottom:4px;
+    border-radius: 30px;
+    margin-bottom: 4px;
   }
 }
 
 
-
-  div.col-sm-6{
-    flex-basis: 50%;
+div.flex-container {
+  display: flex;
 }
-div.col-sm-3{
-    flex-basis:25%;
-  }
+
+div.col-sm-6 {
+  flex-basis: 50%;
+}
+
+div.col-sm-3 {
+  flex-basis: 25%;
+}

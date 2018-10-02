@@ -1,8 +1,32 @@
-<div>
-  <p>
-    Current animal id is: <span style="color:#2050c0; font-weight: 500">{{currentAnimal?.id}}</span>
-  </p>
-  <p>Current Animal name is: <span style="color:#2050c0; font-weight: 500">{{currentAnimal?.name}}</span></p>
-  <p>The current animal belongs to the <span style="color:#2050c0; font-weight: 500">{{currentAnimal?.family}}</span>
-    family</p>
+<div style="display: flex; flex-flow: column wrap; margin-left:4px">
+  <form [formGroup]="frmAnimal">
+    <div class="table-row">
+      <label>Current animal id is: </label>
+      <mat-form-field>
+        <input type="text" formControlName="id" color="primary" placeholder="Current animal Id" matInput autocomplete="false"
+          [value]="currentAnimal?.id">
+      </mat-form-field>
+    </div>
+
+
+    <div class="table-row">
+      <label> Current Animal name is: </label>
+      <mat-form-field>
+        <input type="text" matInput placeholder="Animal name" [value]="currentAnimal?.name">
+      </mat-form-field>
+    </div>
+
+    <div class="table-row">
+      <label>The animal familiy is: </label>
+      <mat-form-field>
+        <input type="text" matInput placeholder="Animal's family" [value]="currentAnimal?.family">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <button mat-button color="primary" [disableRipple]="true" style="margin-right: auto">Save</button>
+    </div>
+  </form>
 </div>
+
+{{frmAnimal.value | json}}

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableModule, MatCheckboxModule, MatButtonModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule, MatCheckboxModule, MatButtonModule, MatInputModule } from '@angular/material';
 
 import { CurrentAnimalComponent } from './current-animal/current-animal.component';
 
@@ -15,9 +16,11 @@ import { AnimalEffects } from './state/animal.effects';
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatTableModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatInputModule,
     AnimalsRoutingModule,
     StoreModule.forFeature('animals', reducer),
     EffectsModule.forFeature([AnimalEffects])

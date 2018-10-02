@@ -18,7 +18,7 @@ export class AnimalService {
 
 
 export const animals: Array<IAnimal> = [
-  { id: 1, name: 'chimpanzee', family: 'Apes' },
-  { id: 2, name: 'tiger', family: 'Cates' },
-  { id: 3, name: 'eagle', family: 'Birds' }
+  { id: 1, name: 'Chimpanzee', family: 'Apes' },
+  { id: 2, name: 'Tiger', family: 'Cates' },
+  { id: 3, name: 'Eagle', family: 'Birds' }
 ];
