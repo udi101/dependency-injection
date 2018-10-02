@@ -3,8 +3,7 @@
     <div class="table-row">
       <label>Current animal id is: </label>
       <mat-form-field>
-        <input type="text" formControlName="id" color="primary" placeholder="Current animal Id" matInput autocomplete="false"
-          [value]="currentAnimal?.id">
+        <input type="text" formControlName="id" color="primary" placeholder="Current animal Id" matInput autocomplete="false">
       </mat-form-field>
     </div>
 
@@ -12,19 +11,20 @@
     <div class="table-row">
       <label> Current Animal name is: </label>
       <mat-form-field>
-        <input type="text" matInput placeholder="Animal name" [value]="currentAnimal?.name">
+        <input type="text" formControlName="name" matInput placeholder="Animal name">
       </mat-form-field>
     </div>
 
     <div class="table-row">
       <label>The animal familiy is: </label>
       <mat-form-field>
-        <input type="text" matInput placeholder="Animal's family" [value]="currentAnimal?.family">
+        <input type="text" formControlName="family" matInput placeholder="Animal's family">
       </mat-form-field>
     </div>
 
     <div>
-      <button mat-button color="primary" [disableRipple]="true" style="margin-right: auto">Save</button>
+      <button mat-button color="primary" [disableRipple]="true" style="margin-right: auto" [disabled]="frmAnimal.invalid"
+        (click)="updateAnimal()">Save</button>
     </div>
   </form>
 </div>

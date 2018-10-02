@@ -95,6 +95,10 @@ export function reducer(state = initialState, action: AnimalActions): IAnimalSta
         animals: [],
         error: action.payload
       };
+    case AnimalActionTypes.UpdateAnimalSuccess:
+      return {
+        ...state
+      };
 
     default: return state;
   }

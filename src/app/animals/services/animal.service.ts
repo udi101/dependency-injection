@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { IAnimal } from '../interfaces/IAnimal.interface';
 @Injectable({
@@ -14,8 +14,12 @@ export class AnimalService {
   getAnimals(): Array<IAnimal> {
     return animals;
   }
-}
 
+  updateAnimal(animal: IAnimal) {
+    return of(animal);
+  }
+
+}
 
 export const animals: Array<IAnimal> = [
   { id: 1, name: 'Chimpanzee', family: 'Apes' },
