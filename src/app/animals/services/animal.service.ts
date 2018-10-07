@@ -16,9 +16,14 @@ export class AnimalService {
   }
 
   updateAnimal(animal: IAnimal) {
+    console.log(animal);
     return of(animal);
   }
 
+  deleteAnimal(animalId: number) {
+    console.log('Deleteing animal number ' + animalId);
+    return of(animalId);
+  }
 }
 
 export const animals: Array<IAnimal> = [

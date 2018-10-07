@@ -10,7 +10,10 @@ export enum AnimalActionTypes {
   LoadFailure = '[Animal] Load Failure',
   UpdateAnimal = '[Animal] Update Animal',
   UpdateAnimalSuccess = '[Animal] Update Animal Success',
-  UpdateAnimalFailure = '[Animal] Update Animal Failure'
+  UpdateAnimalFailure = '[Animal] Update Animal Failure',
+  DeleteAnimal = '[Animal] Delete Animal',
+  DeleteAnimalSuccess = '[Animal] Delete Animal Success',
+  DeleteAnimalFailure = '[Animal] Delete Animal Failure'
 }
 
 
@@ -54,6 +57,21 @@ export class UpdateAnimalFailure implements Action {
   constructor(public payload: string) { }
 }
 
+export class DeleteAnimal implements Action {
+  readonly type = AnimalActionTypes.DeleteAnimal;
+  constructor(public payload: number) { }
+}
+
+export class DeleteAnimalSuccess implements Action {
+  readonly type = AnimalActionTypes.DeleteAnimalSuccess;
+  constructor(public payload: number) { }
+}
+
+export class DeleteAnimalFailure implements Action {
+  readonly type = AnimalActionTypes.DeleteAnimalFailure;
+  constructor(public payload: string) { }
+}
+
 // Creating a type (union) so we could have a strongly typed actions
 export type AnimalActions =
   ToggleDisplayFamily |
@@ -63,4 +81,7 @@ export type AnimalActions =
   LoadFailure |
   UpdateAnimal |
   UpdateAnimalSuccess |
-  UpdateAnimalFailure;
+  UpdateAnimalFailure |
+  DeleteAnimal |
+  DeleteAnimalSuccess |
+  DeleteAnimalFailure;

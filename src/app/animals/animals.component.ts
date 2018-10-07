@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 
 import { IAnimal } from './interfaces/IAnimal.interface';
 import { AnimalService } from './services/animal.service';
@@ -13,7 +13,8 @@ import { takeWhile } from 'rxjs/operators';
 @Component({
   selector: 'app-animals',
   templateUrl: './animals.component.html',
-  styleUrls: ['./animals.component.scss']
+  styleUrls: ['./animals.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AnimalsComponent implements OnInit, OnDestroy {
   componentActive = true;
@@ -65,5 +66,3 @@ export class AnimalsComponent implements OnInit, OnDestroy {
     this.componentActive = false;
   }
 }
-
-

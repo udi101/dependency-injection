@@ -95,9 +95,23 @@ export function reducer(state = initialState, action: AnimalActions): IAnimalSta
         animals: [],
         error: action.payload
       };
+
     case AnimalActionTypes.UpdateAnimalSuccess:
+      let updatedAnimals = state.animals.map(
+        animal => animal.id === action.payload.id ? action.payload : animal);
       return {
-        ...state
+        ...state,
+        animals: updatedAnimals
+      };
+
+    case AnimalActionTypes.DeleteAnimalSuccess:
+      updatedAnimals = [...state.animals];
+      updatedAnimals.splice(updatedAnimals.findIndex(a => a.id === action.payload), 1);
+      return {
+        ...state,
+        animals: updatedAnimals,
+        currentAnimalId: null
+        // currentAnimalId: updatedAnimals[0] && updatedAnimals[0].id
       };
 
     default: return state;

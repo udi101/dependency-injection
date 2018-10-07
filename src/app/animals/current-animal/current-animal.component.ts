@@ -38,7 +38,11 @@ export class CurrentAnimalComponent implements OnInit {
 
   updateAnimal() {
     const updatedAnimal: IAnimal = { ...this.frmAnimal.value };
-    console.log(updatedAnimal);
     this.store.dispatch(new animalAction.UpdateAnimal(updatedAnimal));
+  }
+
+  deleteAnimal() {
+    const animalToDelete: IAnimal = { ...this.frmAnimal.value };
+    this.store.dispatch(new animalAction.DeleteAnimal(this.frmAnimal.get('id').value));
   }
 }

@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { WorkersService } from './workers/workers.service';
-import { reducers, metaReducers } from './reducers';
+// import { reducers, metaReducers } from './reducers';
 
 // NgRx
 import { StoreModule } from '@ngrx/store';
