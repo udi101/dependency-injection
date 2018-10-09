@@ -13,6 +13,14 @@ export class AnimalEffects {
   constructor(private actions$: Actions, private animalsService: AnimalService) { }
 
   @Effect()
+  saveNewAnimal$: Observable<Action> = this.actions$.pipe(
+    ofType(animalsActions.AnimalActionTypes.SaveNewAnimal),
+    mergeMap((action: animalsActions.SaveNewAnimal) => this.animalsService.saveNewAnimal(action.payload).pipe(
+      map((animal: IAnimal) => (new animalsActions.SaveNewAnimalSuccess(animal)))
+    ))
+  );
+
+  @Effect()
   loadAnimals$: Observable<Action> = this.actions$.pipe(
     ofType(animalsActions.AnimalActionTypes.Load),
     switchMap((action: animalsActions.Load) => this.animalsService.animals$.pipe(
@@ -37,7 +45,7 @@ export class AnimalEffects {
     switchMap((action: animalsActions.DeleteAnimal) => this.animalsService.deleteAnimal(action.payload).pipe(
       map((animalId: number) => new animalsActions.DeleteAnimalSuccess(animalId))
     ))
-    );
+  );
 
 }
 

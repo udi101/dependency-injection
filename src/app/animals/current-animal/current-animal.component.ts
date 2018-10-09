@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import * as fromAnimal from './../state/animals.reducer';
-import * as animalAction from './../state/animal.actions';
+import * as animalActions from './../state/animal.actions';
 import { IAnimal } from '../interfaces/IAnimal.interface';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'current-animal',
   templateUrl: './current-animal.component.html',
   styleUrls: ['./current-animal.component.scss']
 })
-export class CurrentAnimalComponent implements OnInit {
+export class CurrentAnimalComponent implements OnInit, OnDestroy {
   frmAnimal: FormGroup;
+  componentActive = true;
+  totalAnimalCount: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -20,7 +23,8 @@ export class CurrentAnimalComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.store.pipe(select(fromAnimal.getCurrentAnimal))
+    this.store.pipe(select(fromAnimal.getCurrentAnimal),
+      takeWhile(() => this.componentActive))
       .subscribe(animal => this.frmAnimal.patchValue({
         id: animal && animal.id,
         name: animal && animal.name,
@@ -38,11 +42,19 @@ export class CurrentAnimalComponent implements OnInit {
 
   updateAnimal() {
     const updatedAnimal: IAnimal = { ...this.frmAnimal.value };
-    this.store.dispatch(new animalAction.UpdateAnimal(updatedAnimal));
+    this.store.dispatch(new animalActions.UpdateAnimal(updatedAnimal));
   }
 
   deleteAnimal() {
     const animalToDelete: IAnimal = { ...this.frmAnimal.value };
-    this.store.dispatch(new animalAction.DeleteAnimal(this.frmAnimal.get('id').value));
+    this.store.dispatch(new animalActions.DeleteAnimal(this.frmAnimal.get('id').value));
+  }
+  saveNewAnimal() {
+    console.log({ ...this.frmAnimal.value, id: 0 });
+    this.store.dispatch((new animalActions.SaveNewAnimal({ ...this.frmAnimal.value, id: 0 })));
+  }
+
+  ngOnDestroy() {
+    this.componentActive = false;
   }
 }

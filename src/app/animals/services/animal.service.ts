@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { IAnimal } from '../interfaces/IAnimal.interface';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,12 +22,17 @@ export class AnimalService {
   }
 
   deleteAnimal(animalId: number) {
+
     console.log('Deleteing animal number ' + animalId);
     return of(animalId);
   }
+
+  saveNewAnimal(animal: IAnimal): Observable<IAnimal> {
+    return of({ ...animal, id: animals.length });
+  }
 }
 
-export const animals: Array<IAnimal> = [
+export let animals: Array<IAnimal> = [
   { id: 1, name: 'Chimpanzee', family: 'Apes' },
   { id: 2, name: 'Tiger', family: 'Cates' },
   { id: 3, name: 'Eagle', family: 'Birds' }
