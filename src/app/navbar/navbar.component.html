@@ -11,7 +11,7 @@
 
   <button mat-button [matMenuTriggerFor]="animals">Animals</button>
   <mat-menu [overlapTrigger]="false" #animals>
-    <button mat-menu-item [routerLink]="['animals']">List</button>
+    <button mat-menu-item [routerLink]="['animals',{name:'udi', last:'mazor'}]">List</button>
   </mat-menu>
 
 </div>

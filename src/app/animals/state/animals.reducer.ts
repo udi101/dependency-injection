@@ -3,7 +3,7 @@ import * as fromRoot from './../../state/app.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AnimalActions, AnimalActionTypes } from './animal.actions';
 
-export interface IState {
+export interface IState extends fromRoot.IState {
   animals: IAnimalState;
 }
 
@@ -71,7 +71,8 @@ export function reducer(state = initialState, action: AnimalActions): IAnimalSta
   switch (action.type) {
 
     case AnimalActionTypes.SaveNewAnimalSuccess:
-      return { ...state, animals: [...state.animals, action.paylad] };
+      const newAnimal: IAnimal = { ...action.paylad, id: action.paylad.id + 1 };
+      return { ...state, animals: [...state.animals, newAnimal] };
 
     case AnimalActionTypes.ToggleDisplayFamily:
       return {

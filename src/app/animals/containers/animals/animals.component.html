@@ -1,7 +1,4 @@
 <div class="col-sm-6">
-
-
-
   <mat-table [dataSource]="animals$ | async" class="mat-elevation-z2" style="flex-basis: 80%">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
@@ -10,7 +7,7 @@
 
     <ng-container matColumnDef="family">
       <mat-header-cell *matHeaderCellDef>Family</mat-header-cell>
-      <mat-cell *matCellDef="let animal">{{ displayAnimalFamily?animal.family:''}}</mat-cell>
+      <mat-cell *matCellDef="let animal">{{ (displayAnimalFamily$ | async) ?animal.family:''}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="current">
@@ -24,10 +21,10 @@
 
   </mat-table>
   <br>
-  <mat-checkbox color="primary" [disableRipple]="true" (change)="changeDisplay($event.checked)" [checked]="displayAnimalFamily">Display
+  <mat-checkbox color="primary" [disableRipple]="true" (change)="changeDisplay($event.checked)" [checked]="displayAnimalFamily$ | async">Display
     animals families</mat-checkbox>
-
 </div>
+
 <div class="col-sm-6" style="margin:4px">
-  <current-animal></current-animal>
+  <current-animal [currentAnimal]="currentAnimal$ | async" (update)="updateAnimal($event)"></current-animal>
 </div>

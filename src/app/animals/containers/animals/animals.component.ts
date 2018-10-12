@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 
-import { IAnimal } from './interfaces/IAnimal.interface';
-import { AnimalService } from './services/animal.service';
-
+import { IAnimal } from '../../interfaces/IAnimal.interface';
+import { AnimalService } from '../../services/animal.service';
+import { ActivatedRoute } from '@angular/router';
 // NgRx
-import * as fromAnimal from './state/animals.reducer';
-import * as animalActions from './state/animal.actions';
+import * as fromAnimal from '../../state/animals.reducer';
+import * as animalActions from '../../state/animal.actions';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 
 @Component({
@@ -22,32 +22,29 @@ export class AnimalsComponent implements OnInit, OnDestroy {
   currentAnimalId = 0;
   animals: Array<IAnimal> = new Array<IAnimal>();
   animals$: Observable<Array<IAnimal>>;
+  currentAnimal$: Observable<IAnimal>;
+  displayAnimalFamily$: Observable<boolean>;
+
   displayColumns = ['name', 'family', 'current'];
+
 
   constructor(private animalService: AnimalService,
     private store: Store<fromAnimal.IState>) { }
 
   ngOnInit() {
+
     // This will be listened by our effect
     this.store.dispatch(new animalActions.Load());
-
-    // This is the pipe async approach vs the subscribe approach
+    this.currentAnimal$ = this.store.pipe(select(fromAnimal.getCurrentAnimal));
     this.animals$ = this.store.pipe(select(fromAnimal.getAnimals));
-    // this.store.pipe(select(fromAnimal.getAnimals)).subscribe((animals: Array<IAnimal>) => this.animals = animals);
+    this.displayAnimalFamily$ = this.store.pipe(select(fromAnimal.getAnimalsDiplayAnimalfamily));
 
-    // registering the store state
-    this.store.pipe(
-      select(fromAnimal.getAnimalsDiplayAnimalfamily),
-      takeWhile(() => this.componentActive)).subscribe(
-        displayAnimalFamily => {
-          this.displayAnimalFamily = displayAnimalFamily;
-        }
-      );
     this.store.pipe(
       select(fromAnimal.getCurrentAnimalId),
       takeWhile(() => this.componentActive))
       .subscribe((currentAnimalId: number) => this.currentAnimalId = currentAnimalId
       );
+
   }
 
   isCurrentAnimal(animalId: number): boolean {
@@ -60,6 +57,10 @@ export class AnimalsComponent implements OnInit, OnDestroy {
 
   setCurrentAnimal(animalId: number) {
     this.store.dispatch(new animalActions.SetCurrentAnimal(animalId));
+  }
+
+  updateAnimal(animal: IAnimal) {
+    this.store.dispatch(new animalActions.UpdateAnimal(animal));
   }
 
   ngOnDestroy() {
