@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { IAnimal } from '../interfaces/IAnimal.interface';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +28,7 @@ export class AnimalService {
   }
 
   saveNewAnimal(animal: IAnimal): Observable<IAnimal> {
+    animals.push(animal);
     return of({ ...animal, id: animals.length });
   }
 }

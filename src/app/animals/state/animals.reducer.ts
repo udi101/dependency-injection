@@ -71,7 +71,7 @@ export function reducer(state = initialState, action: AnimalActions): IAnimalSta
   switch (action.type) {
 
     case AnimalActionTypes.SaveNewAnimalSuccess:
-      const newAnimal: IAnimal = { ...action.paylad, id: action.paylad.id + 1 };
+      const newAnimal: IAnimal = { ...action.paylad, id: action.paylad.id };
       return { ...state, animals: [...state.animals, newAnimal] };
 
     case AnimalActionTypes.ToggleDisplayFamily:

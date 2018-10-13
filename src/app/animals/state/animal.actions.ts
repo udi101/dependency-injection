@@ -15,7 +15,7 @@ export enum AnimalActionTypes {
   DeleteAnimalSuccess = '[Animal] Delete Animal Success',
   DeleteAnimalFailure = '[Animal] Delete Animal Failure',
   SaveNewAnimal = '[Animal] Save New Animal',
-  SaveNewAnimalSuccess = '[Animal] Save NEw Animal Success'
+  SaveNewAnimalSuccess = '[Animal] Save New Animal Success'
 }
 
 

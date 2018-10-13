@@ -17,33 +17,31 @@ export class CurrentAnimalComponent implements OnInit, OnDestroy {
   frmAnimal: FormGroup;
   componentActive = true;
   totalAnimalCount: number;
+  private selectedAnimal = <IAnimal>{};
 
-  @Input()
-  set currentAnimal(animal: IAnimal) {
+  @Input('selectedAnimal') set currentAnimal(animal: IAnimal) {
+    this.selectedAnimal = animal;
     if (!this.frmAnimal) { return; }
     this.frmAnimal.setValue({
-      id: animal.id,
-      name: animal.name,
-      family: animal.family
+      id: animal && animal.id,
+      name: animal && animal.name,
+      family: animal && animal.family
     });
   }
-
   @Output() update: EventEmitter<IAnimal> = new EventEmitter<IAnimal>();
   @Output() delete: EventEmitter<number> = new EventEmitter<number>();
-  @Output() saveNewAnimal: EventEmitter<IAnimal> = new EventEmitter<IAnimal>();
+  @Output() addAnimal: EventEmitter<IAnimal> = new EventEmitter<IAnimal>();
   constructor(
     private formBuilder: FormBuilder
-    // ,private store: Store<fromAnimal.IState>
   ) { }
 
   ngOnInit() {
-    console.log(this.currentAnimal);
     this.buildForm();
   }
 
   buildForm() {
     this.frmAnimal = this.formBuilder.group({
-      id: [null, Validators.required],
+      id: ['', Validators.required],
       name: ['', [Validators.required, Validators.minLength(2)]],
       family: ''
     });
@@ -55,13 +53,12 @@ export class CurrentAnimalComponent implements OnInit, OnDestroy {
   }
 
   deleteAnimal() {
-    const animalToDelete: IAnimal = { ...this.frmAnimal.value };
-
-    // this.store.dispatch(new animalActions.DeleteAnimal(this.frmAnimal.get('id').value));
+    console.log(`deleting animal no. ${this.selectedAnimal.id} `);
+    this.delete.emit(this.selectedAnimal.id);
   }
-  saveNewAnimalf() {
-    console.log({ ...this.frmAnimal.value, id: 0 });
-    // this.store.dispatch((new animalActions.SaveNewAnimal({ ...this.frmAnimal.value, id: 0 })));
+
+  addNewAnimal() {
+    this.addAnimal.emit({ ...this.frmAnimal.value, id: 0 });
   }
 
   ngOnDestroy() {

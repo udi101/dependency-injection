@@ -63,6 +63,15 @@ export class AnimalsComponent implements OnInit, OnDestroy {
     this.store.dispatch(new animalActions.UpdateAnimal(animal));
   }
 
+  deleteAnimal(animalId: number) {
+    this.store.dispatch(new animalActions.DeleteAnimal(animalId));
+  }
+
+  addNewAnimal(animal: IAnimal) {
+    this.store.dispatch((new animalActions.SaveNewAnimal(animal)));
+    console.log(animal);
+  }
+
   ngOnDestroy() {
     this.componentActive = false;
   }

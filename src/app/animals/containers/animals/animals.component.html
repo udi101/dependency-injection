@@ -26,5 +26,6 @@
 </div>
 
 <div class="col-sm-6" style="margin:4px">
-  <current-animal [currentAnimal]="currentAnimal$ | async" (update)="updateAnimal($event)"></current-animal>
+  <current-animal [selectedAnimal]="currentAnimal$ | async" (update)="updateAnimal($event)" (addAnimal)="addNewAnimal($event)"
+    (delete)="deleteAnimal($event)"></current-animal>
 </div>
