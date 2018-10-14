@@ -1,4 +1,4 @@
-import { Component, SkipSelf, Optional, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WorkersService } from './workers/workers.service';
 import { IWorker } from './workers/worker.interface';
 

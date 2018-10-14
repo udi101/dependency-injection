@@ -81,7 +81,7 @@ export class SaveNewAnimal implements Action {
 
 export class SaveNewAnimalSuccess implements Action {
   readonly type = AnimalActionTypes.SaveNewAnimalSuccess;
-  constructor(public paylad: IAnimal) { }
+  constructor(public paylod: IAnimal) { }
 }
 
 // Creating a type (union) so we could have a strongly typed actions

@@ -9,7 +9,7 @@ import { CurrentAnimalComponent } from './components/current-animal/current-anim
 import { StoreModule } from '@ngrx/store';
 import { AnimalsRoutingModule } from './animals-routing.module';
 import { AnimalsComponent } from './containers/animals/animals.component';
-import { reducer } from './state/animals.reducer';
+import { animalReducer } from './state/animals.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AnimalEffects } from './state/animal.effects';
 
@@ -22,7 +22,7 @@ import { AnimalEffects } from './state/animal.effects';
     MatButtonModule,
     MatInputModule,
     AnimalsRoutingModule,
-    StoreModule.forFeature('animals', reducer),
+    StoreModule.forFeature('animals', animalReducer),
     EffectsModule.forFeature([AnimalEffects])
   ],
   declarations: [AnimalsComponent, CurrentAnimalComponent]

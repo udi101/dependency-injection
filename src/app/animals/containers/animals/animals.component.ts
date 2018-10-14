@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-
 import { IAnimal } from '../../interfaces/IAnimal.interface';
 import { AnimalService } from '../../services/animal.service';
-import { ActivatedRoute } from '@angular/router';
+
 // NgRx
-import * as fromAnimal from '../../state/animals.reducer';
+import * as fromAnimal from '../../state';
 import * as animalActions from '../../state/animal.actions';
 import { Store, select } from '@ngrx/store';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 
 @Component({
