@@ -1,12 +1,19 @@
 import { IAnimal } from '../interfaces/IAnimal.interface';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, ActionReducerMap } from '@ngrx/store';
 import { IAnimalState } from './animals.reducer';
 import * as fromRoot from 'src/app/state/app.state';
+import * as fromAnimals from './animals.reducer';
+import * as fromBirds from './birds.reducer';
 
-export interface IState extends fromRoot.IState {
-    animals: IAnimalState;
-  }
+export interface IState {
+    animals: fromAnimals.IAnimalState;
+    birds: fromBirds.IBirdState;
+}
 
+export const reducers: ActionReducerMap<IState> = {
+    animals: fromAnimals.animalReducer,
+    birds: fromBirds.birdReducer
+};
 
 // =====================================================================
 // SELECTORS
@@ -16,36 +23,36 @@ export interface IState extends fromRoot.IState {
 // =====================================================================
 
 // the feature selector
-const getAnimalFeatureState = createFeatureSelector<IAnimalState>('animals');
+const getAnimalFeatureState = createFeatureSelector<IState>('animals');
 
 // Selector for displaying animal family
 export const getAnimalsDiplayAnimalfamily = createSelector(
     getAnimalFeatureState,
-    (state: IAnimalState): boolean => state.displayAnimalFamily
+    (state: IState): boolean => state.animals.displayAnimalFamily
 );
 
 // Selector for the current animal id
 export const getCurrentAnimalId = createSelector(
     getAnimalFeatureState,
-    (state: IAnimalState): number => state.currentAnimalId
+    (state: IState): number => state.animals.currentAnimalId
 );
 
 // get current animal - Composition of 2 selectors
 export const getCurrentAnimal = createSelector(
     getAnimalFeatureState,
     getCurrentAnimalId,
-    (state: IAnimalState, animalId: number): IAnimal => animalId ? state.animals.find(a => a.id === animalId) : null
+    (state: IState, animalId: number): IAnimal => animalId ? state.animals.animals.find(a => a.id === animalId) : null
 );
 
 // getting the list of all animals
 export const getAnimals = createSelector(
     getAnimalFeatureState,
-    (state: IAnimalState): Array<IAnimal> => state.animals
+    (state: IState): Array<IAnimal> => state.animals.animals
 );
 
 // getting the error message
 export const getError = createSelector(
     getAnimalFeatureState,
-    (state: IAnimalState): string => state.error
+    (state: IState): string => state.animals.error
 );
 

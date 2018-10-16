@@ -12,6 +12,7 @@ import { AnimalsComponent } from './containers/animals/animals.component';
 import { animalReducer } from './state/animals.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AnimalEffects } from './state/animal.effects';
+import { reducers } from './state'
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { AnimalEffects } from './state/animal.effects';
     MatButtonModule,
     MatInputModule,
     AnimalsRoutingModule,
-    StoreModule.forFeature('animals', animalReducer),
+    StoreModule.forFeature('animals', reducers),
     EffectsModule.forFeature([AnimalEffects])
   ],
   declarations: [AnimalsComponent, CurrentAnimalComponent]

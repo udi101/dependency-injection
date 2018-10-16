@@ -75,6 +75,6 @@ export function animalReducer(state = initialState, action: AnimalActions): IAni
         // currentAnimalId: updatedAnimals[0] && updatedAnimals[0].id
       };
 
-    default: return state;
+    default: return {...state};
   }
 }
