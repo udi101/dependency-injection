@@ -14,6 +14,9 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store'
+
+import { reducers, CustomSerializer } from './state/reducers';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import { EffectsModule } from '@ngrx/effects';
     BrowserModule,
     MatMenuModule, MatButtonModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(reducers),
+    StoreRouterConnectingModule,
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       name: 'di devTools',
@@ -33,7 +37,9 @@ import { EffectsModule } from '@ngrx/effects';
       logOnly: environment.production
     })
   ],
-  providers: [WorkersService],
+  providers: [WorkersService,
+    { provide: RouterStateSerializer, useClass: CustomSerializer }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

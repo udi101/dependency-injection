@@ -5,6 +5,8 @@ import * as fromRoot from 'src/app/state/app.state';
 import * as fromAnimals from './animals.reducer';
 import * as fromBirds from './birds.reducer';
 
+import { getRouterState } from 'src/app/state/reducers';
+
 export interface IState {
     animals: fromAnimals.IAnimalState;
     birds: fromBirds.IBirdState;
@@ -29,6 +31,12 @@ const getAnimalFeatureState = createFeatureSelector<IState>('animals');
 export const getAnimalsDiplayAnimalfamily = createSelector(
     getAnimalFeatureState,
     (state: IState): boolean => state.animals.displayAnimalFamily
+);
+
+// Getting the router url
+export const getRouterUrl = createSelector(
+    getRouterState,
+    (router) => router.state.url
 );
 
 // Selector for the current animal id
