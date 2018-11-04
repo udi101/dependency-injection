@@ -6,8 +6,8 @@ import { AnimalService } from '../../services/animal.service';
 import * as fromAnimal from '../../state';
 import * as animalActions from '../../state/animal.actions';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
+import { Observable, interval } from 'rxjs';
+import { takeWhile, withLatestFrom, take, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-animals',
@@ -31,6 +31,17 @@ export class AnimalsComponent implements OnInit, OnDestroy {
     private store: Store<fromAnimal.IState>) { }
 
   ngOnInit() {
+
+    let x$ = interval(1000);
+    // let y$ = interval(2000);
+    x$.pipe(
+      withLatestFrom(this.store.pipe(
+        select(fromAnimal.getCurrentAnimalId)
+      )),
+      map(([x, y]) => x + y),
+      take(16)
+    ).subscribe(data => console.log(data));
+
 
     // This will be listened by our effect
     this.store.dispatch(new animalActions.Load());
