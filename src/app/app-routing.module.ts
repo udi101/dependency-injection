@@ -5,7 +5,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forRoot([
       { path: 'workers', loadChildren: './workers/workers.module#WorkersModule' },
-      { path: 'animals', loadChildren: './animals/animals.module#AnimalsModule' }
+      { path: 'animals', loadChildren: './animals/animals.module#AnimalsModule' },
+      { path: 'filter-list', loadChildren: './mat-select-filter/mat-select-filter.module#MatSelectFilterModule' }
     ]),
     CommonModule
   ],

@@ -14,4 +14,8 @@
     <button mat-menu-item [routerLink]="['animals',{name:'udi', last:'mazor'}]">List</button>
   </mat-menu>
 
+  <button mat-button [matMenuTriggerFor]="filterSelect">filterSelect</button>
+  <mat-menu [overlapTrigger]="false" #filterSelect>
+    <button mat-menu-item [routerLink]="['filter-list']">Filter Select</button>
+  </mat-menu>
 </div>

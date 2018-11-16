@@ -1,0 +1,18 @@
+<p>
+  mat-select-filter works!
+</p>
+
+
+<form [formGroup]="frmFilterTest">
+  <!-- <mat-form-field>
+    <mat-select formControlName="city" placeholder="Select a city" [multiple]="true">
+      <ngx-mat-select-search [formControl]="cityFiltered"></ngx-mat-select-search>
+      <mat-option *ngFor="let city of cities" [value]="city.id">{{city.city}}</mat-option>
+    </mat-select>
+  </mat-form-field> -->
+  <select-filter-control formControlName="testFilter" [options]="cities"></select-filter-control>
+</form>
+
+<div style="margin-top: 24px">
+  {{frmFilterTest.value | json}}
+</div>
