@@ -1,9 +1,7 @@
 import { IAnimal } from '../interfaces/IAnimal.interface';
 import { createFeatureSelector, createSelector, ActionReducerMap } from '@ngrx/store';
-import { IAnimalState } from './animals.reducer';
-import * as fromRoot from 'src/app/state/app.state';
-import * as fromAnimals from './animals.reducer';
-import * as fromBirds from './birds.reducer';
+import * as fromAnimals from './reducers/animals.reducer';
+import * as fromBirds from './reducers/birds.reducer';
 
 import { getRouterState } from 'src/app/state/reducers';
 

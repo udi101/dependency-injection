@@ -9,10 +9,11 @@ import { CurrentAnimalComponent } from './components/current-animal/current-anim
 import { StoreModule } from '@ngrx/store';
 import { AnimalsRoutingModule } from './animals-routing.module';
 import { AnimalsComponent } from './containers/animals/animals.component';
-import { animalReducer } from './state/animals.reducer';
+import {animalReducer} from './state/reducers/animals.reducer';
+// import { animalReducer } from './state/reducers/animals.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AnimalEffects } from './state/animal.effects';
-import { reducers } from './state'
+import { reducers } from './state';
 
 @NgModule({
   imports: [

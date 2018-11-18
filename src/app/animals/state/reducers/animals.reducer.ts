@@ -1,5 +1,5 @@
-import { IAnimal } from '../interfaces/IAnimal.interface';
-import { AnimalActions, AnimalActionTypes } from './animal.actions';
+import { IAnimal } from '../../interfaces/IAnimal.interface';
+import { AnimalActions, AnimalActionTypes } from './../animal.actions';
 
 
 // Interface of the Animal's feature state
@@ -34,6 +34,7 @@ export function animalReducer(state = initialState, action: AnimalActions): IAni
     case AnimalActionTypes.ToggleDisplayFamily:
       return {
         ...state,
+        animals: [...state.animals],
         displayAnimalFamily: action.payload
       };
 
@@ -75,6 +76,6 @@ export function animalReducer(state = initialState, action: AnimalActions): IAni
         // currentAnimalId: updatedAnimals[0] && updatedAnimals[0].id
       };
 
-    default: return {...state};
+    default: return { ...state };
   }
 }
