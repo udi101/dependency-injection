@@ -1,1 +1,1 @@
-export * from './city.interface';
+export * from './animal.interface';

@@ -1,6 +1,5 @@
-import { animalReducer } from './animals.reducer';
+import { animalReducer, IAnimalState } from './animals.reducer';
 import * as animalActions from './../animal.actions';
-import { IAnimalState } from './animals.reducer';
 
 describe('animalReducer', () => {
   describe('toggleDisplayFamily', () => {

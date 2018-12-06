@@ -1,4 +1,4 @@
-export interface ICity {
+export interface IAnimal {
   id: number;
   value: string;
 }

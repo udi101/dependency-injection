@@ -1,16 +1,11 @@
-<p>
-  mat-select-filter works!
-</p>
-
-
 <form [formGroup]="frmFilterTest">
-  <!-- <mat-form-field>
-    <mat-select formControlName="city" placeholder="Select a city" [multiple]="true">
-      <ngx-mat-select-search [formControl]="cityFiltered"></ngx-mat-select-search>
-      <mat-option *ngFor="let city of cities" [value]="city.id">{{city.city}}</mat-option>
+  <mat-form-field>
+    <mat-select formControlName="city"  [value]="rr" placeholder="Select an Animal" [multiple]="true" [disableOptionCentering]="true">
+      <ngx-mat-select-search [formControl]="cityFiltered" noEntriesFoundLabel="no cities were found"
+      [disableInitialFocus]="true" [clearSearchInput]="false" placeholderLabel="Enter city name"></ngx-mat-select-search>
+      <mat-option *ngFor="let animal of filteredAnimals" [value]="animal.id" >{{animal.value}}</mat-option>
     </mat-select>
-  </mat-form-field> -->
-  <select-filter-control formControlName="testFilter" [options]="cities"></select-filter-control>
+  </mat-form-field>
 </form>
 
 <div style="margin-top: 24px">
