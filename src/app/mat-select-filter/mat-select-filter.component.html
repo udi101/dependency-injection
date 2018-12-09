@@ -1,13 +1,10 @@
 <form [formGroup]="frmFilterTest">
   <mat-form-field>
-    <mat-select formControlName="city"  [value]="rr" placeholder="Select an Animal" [multiple]="true" [disableOptionCentering]="true">
-      <ngx-mat-select-search [formControl]="cityFiltered" noEntriesFoundLabel="no cities were found"
-      [disableInitialFocus]="true" [clearSearchInput]="false" placeholderLabel="Enter city name"></ngx-mat-select-search>
-      <mat-option *ngFor="let animal of filteredAnimals" [value]="animal.id" >{{animal.value}}</mat-option>
+    <mat-select formControlName="items" [placeholder]="placeholder" [multiple]="true" [disableOptionCentering]="true">
+      <ngx-mat-select-search [formControl]="optionFilter" [noEntriesFoundLabel]="noMatchesMessage"
+      [disableInitialFocus]="false" [clearSearchInput]="true" [placeholderLabel]="searchPlaceholder"></ngx-mat-select-search>
+      <mat-option *ngFor="let item of filteredOptions" [value]="item.id" >{{item.value}}</mat-option>
     </mat-select>
   </mat-form-field>
 </form>
 
-<div style="margin-top: 24px">
-  {{frmFilterTest.value | json}}
-</div>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
-import { IAnimal } from 'src/app/mat-select-filter/interfaces/animal.interface';
+import { ISelectFilterOption } from './../select-filter-option.interface';
 
 @Component({
   selector: 'app-mat-select-demo',
@@ -9,26 +8,26 @@ import { IAnimal } from 'src/app/mat-select-filter/interfaces/animal.interface';
   styleUrls: ['./mat-select-demo.component.scss']
 })
 export class MatSelectDemoComponent implements OnInit {
-  animals: Array<IAnimal> = animals;
+  animals: Array<ISelectFilterOption> = animals;
   frmAnimals: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.frmAnimals = this.formBuilder.group(
-      { animals: '' }
+      { animals: ''}
     );
   }
 
 }
 
 
-export const animals: Array<IAnimal> = new Array<IAnimal>(
-  { id: 1, value: 'Lion' },
-  { id: 2, value: 'Tiger' },
-  { id: 3, value: 'Eagle' },
-  { id: 4, value: 'Wolf' },
-  { id: 5, value: 'Elephant' },
-  { id: 6, value: 'Giraph' },
-  { id: 7, value: 'Hyena' },
+export const animals: Array<ISelectFilterOption> = new Array<any>(
+  { idl: 1, valuen: 'Lion' },
+  { idl: 2, valuen: 'Tiger' },
+  { idl: 3, valuen: 'Eagle' },
+  { idl: 4, valuen: 'Wolf' },
+  { idl: 5, valuen: 'Elephant' },
+  { idl: 6, valuen: 'Giraph' },
+  { idl: 7, valuen: 'Hyena' },
 );

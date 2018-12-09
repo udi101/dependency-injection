@@ -1,14 +1,6 @@
-<p>
-  mat-select-demo works!
-</p>
-
-<form action="" [formGroup]="frmAnimals">
-  <input type="text" [formControl]="frmAnimals.get('animals')">
+<form [formGroup]="frmAnimals">
+  <gw-select-filter [options]="animals" formControlName="animals"></gw-select-filter>
 </form>
-
-
-<gw-select-filter [animals]="animals"></gw-select-filter>
-
 
 
 {{frmAnimals.value | json}}

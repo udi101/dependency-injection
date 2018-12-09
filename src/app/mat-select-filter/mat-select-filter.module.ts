@@ -6,7 +6,6 @@ import { MatSelectModule, MatInputModule } from '@angular/material';
 
 import { MatSelectFilterComponent } from './mat-select-filter.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { SelectFilterControlComponent } from './select-filter-control/select-filter-control.component';
 import { MatSelectDemoComponent } from './mat-select-demo/mat-select-demo.component';
 
 @NgModule({
@@ -19,6 +18,6 @@ import { MatSelectDemoComponent } from './mat-select-demo/mat-select-demo.compon
       { path: '', component: MatSelectDemoComponent }
     ])
   ],
-  declarations: [MatSelectFilterComponent, SelectFilterControlComponent, MatSelectDemoComponent]
+  declarations: [MatSelectFilterComponent, MatSelectDemoComponent]
 })
 export class MatSelectFilterModule { }

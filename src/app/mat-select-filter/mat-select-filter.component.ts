@@ -1,76 +1,89 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, ControlValueAccessor } from '@angular/forms';
+import { Component, OnInit, Input, forwardRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
-import { IAnimal } from './interfaces';
+import { ISelectFilterOption } from './select-filter-option.interface';
+import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'gw-select-filter',
   templateUrl: './mat-select-filter.component.html',
-  styleUrls: ['./mat-select-filter.component.scss']
+  styleUrls: ['./mat-select-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: forwardRef(() => MatSelectFilterComponent)
+    }
+  ]
 })
-export class MatSelectFilterComponent implements OnInit, ControlValueAccessor {
 
-  componentActive = true;
-  @Input() animals: Array<IAnimal> = new Array<IAnimal>();
-  filteredAnimals: Array<IAnimal> = new Array<IAnimal>();
-  frmFilterTest: FormGroup;
-  cityFiltered: FormControl = new FormControl();
+export class MatSelectFilterComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-  constructor(private formBuilder: FormBuilder) { }
-  ngOnInit() {
-    this.filteredAnimals = [...this.animals];
-    const workers: Array<{ idn: number, valuen: string }> = [{ idn: 1, valuen: 'first' }, { idn: 2, valuen: 'second' }];
-    const keys = Object.keys(workers[0]);
+  @Input() searchPlaceholder = 'Enter search string';
+  @Input() noMatchesMessage = 'No matching items were found';
+  @Input() placeholder = 'Select an item';
+  options: Array<ISelectFilterOption> = new Array<ISelectFilterOption>();
+
+
+  // Building a types Array of ISelectFilterOption
+  @Input('options') set _options(value: Array<any>) {
+    const keys = Object.keys(value[0]);
     const idText = keys[0];
     const valueText = keys[1];
-    console.log(idText, valueText);
-
-    const calcAnimals = workers.map(f => {
-      const tempAnimal: IAnimal = { id: f[idText], value: f[valueText] };
-      return tempAnimal;
+    const tempOptions: Array<ISelectFilterOption> = value.map(inputObject => {
+      return { id: inputObject[idText], value: inputObject[valueText] };
     });
+    this.options = tempOptions;
+  }
+  filterSubscription: Subscription;
+  optionsSubscription: Subscription;
 
-    console.log(this.cityFiltered.setValue([2, 4]));
+  filteredOptions: Array<ISelectFilterOption> = new Array<ISelectFilterOption>();
+  frmFilterTest: FormGroup;
+  optionFilter: FormControl = new FormControl();
+
+  constructor(private formBuilder: FormBuilder) { }
+  onChange = (data: any): void => { };
+
+  ngOnInit() {
+    this.filteredOptions = [...this.options];
     this.frmFilterTest = this.formBuilder.group({
-      city: '',
-      testFilter: []
+      items: ''
     });
 
+    this.optionsSubscription = this.frmFilterTest.get('items').valueChanges.subscribe(() =>
+      this.onChange(this.frmFilterTest.get('items').value)
+    );
 
-    this.cityFiltered.valueChanges.subscribe(() =>
-      this.filterAnimals()
+    this.filterSubscription = this.optionFilter.valueChanges.subscribe(() =>
+      this.filterOptions()
     );
   }
 
-  writeValue(obj: Array<number>): void {
-    this.frmFilterTest.get('city').setValue([obj]);
-  }
-  registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
+  filterOptions() {
+    if (!this.options) { return; }
+    const search = this.optionFilter.value;
+    this.filteredOptions = [...this.options.filter(_option => _option.value.toLowerCase().includes(search.toLowerCase()))];
   }
 
-  filterAnimals() {
-    if (!this.animals) { return; }
-    const search = this.cityFiltered.value;
-    this.filteredAnimals = [...this.animals.filter(animal => animal.value.toLowerCase().includes(search.toLowerCase()))];
+  writeValue(obj: Array<number>): void {
+    this.frmFilterTest.setValue({ items: obj });
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+  }
+  ngOnDestroy() {
+    this.filterSubscription.unsubscribe();
+    this.optionsSubscription.unsubscribe();
   }
 }
-
-
-// export const animals: Array<IAnimal> = new Array<IAnimal>(
-//   { id: 1, value: 'Lion' },
-//   { id: 2, value: 'Tiger' },
-//   { id: 3, value: 'Eagle' },
-//   { id: 4, value: 'Wolf' },
-//   { id: 5, value: 'Elephant' },
-//   { id: 6, value: 'Giraph' },
-//   { id: 7, value: 'Hyena' },
-// );
-
